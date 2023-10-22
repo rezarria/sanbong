@@ -1,6 +1,9 @@
 package io.rezarria.sanbong.security.jwt;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Jwts.SIG;
 import io.jsonwebtoken.security.Keys;
 import io.rezarria.sanbong.security.Details;
@@ -60,7 +63,7 @@ public class JwtUtils {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser().sig().clear().add(SIG.HS256).and().decryptWith(secretKey).build().parseUnsecuredClaims(token).getPayload();
+        Claims claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
         Object authoritiesClaim = claims.get(AUTHORITIES_KEY);
         Collection<? extends GrantedAuthority> authorities = null == authoritiesClaim ? AuthorityUtils.NO_AUTHORITIES : AuthorityUtils.commaSeparatedStringToAuthorityList(authoritiesClaim.toString());
         User principal = new User(claims.getSubject(), "", authorities);
@@ -71,7 +74,7 @@ public class JwtUtils {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().decryptWith(secretKey).build().parseUnsecuredContent(token);
+            Jwts.parser().verifyWith(secretKey).build().isSigned(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
@@ -84,9 +87,11 @@ public class JwtUtils {
 
     public Claims refresh(String token, long seconds) {
         try {
-            return Jwts.parser().decryptWith(secretKey).clockSkewSeconds(seconds)
+            return Jwts.parser()
+                    .verifyWith(secretKey)
+                    .clockSkewSeconds(seconds)
                     .build()
-                    .parseUnsecuredClaims(token)
+                    .parseSignedClaims(token)
                     .getPayload();
         } catch (Exception e) {
             throw new RuntimeException("Token quá cũ");

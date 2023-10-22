@@ -41,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         try {
-            bearerToken = Stream.of(request.getCookies()).filter(x->x.getName().equals("jwt")).findFirst().orElseThrow().getValue();
+            bearerToken = Stream.of(request.getCookies()).filter(x -> x.getName().equals("jwt")).findFirst().orElseThrow().getValue();
             if (StringUtils.hasText(bearerToken)) {
                 return bearerToken;
             }

@@ -1,12 +1,13 @@
 package io.rezarria.sanbong.security;
 
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 public class Details {
     private final Map<String, String> map;
@@ -41,16 +42,16 @@ public class Details {
         return map.get("userId");
     }
 
-    public void setUserId(String userId) {
-        map.put("userId", userId);
+    public void setUserId(UUID userId) {
+        map.put("userId", userId.toString().replaceAll("-", ""));
     }
 
     public String getAccountId() {
         return map.get("accountId");
     }
 
-    public void setAccountId(String accountId) {
-        map.put("accountId", accountId);
+    public void setAccountId(UUID accountId) {
+        map.put("accountId", accountId.toString().replaceAll("-", ""));
     }
 
 }
