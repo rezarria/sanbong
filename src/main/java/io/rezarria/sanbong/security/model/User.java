@@ -1,6 +1,5 @@
 package io.rezarria.sanbong.security.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 

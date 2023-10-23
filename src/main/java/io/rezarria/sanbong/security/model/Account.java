@@ -1,7 +1,5 @@
 package io.rezarria.sanbong.security.model;
 
-
-import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,14 +13,11 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @NonNull
     private String username;
-    @NonNull
     private String password;
-    @NonNull
     private boolean active;
-    @OneToOne(optional = true, mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToOne(optional = true, mappedBy = "account", cascade = CascadeType.MERGE)
     private User user;
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "accounts")
     private Set<Role> roles = new HashSet<>();
 }

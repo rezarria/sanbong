@@ -1,6 +1,5 @@
 package io.rezarria.sanbong.security.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +14,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<Account> accounts = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "roles")
+    private Set<RegisterTemplate> registerTemplates = new HashSet<>();
 }
