@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping()
     public ResponseEntity<?> test() throws Exception {
-        if (true) {
-            throw new Exception();
-        }
         return ResponseEntity.badRequest().build();
     }
 }

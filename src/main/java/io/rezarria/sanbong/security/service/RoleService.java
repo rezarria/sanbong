@@ -2,18 +2,21 @@ package io.rezarria.sanbong.security.service;
 
 import io.rezarria.sanbong.security.model.Role;
 import io.rezarria.sanbong.security.repository.RoleRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class RoleService {
     private final RoleRepository repository;
 
-    public List<Role> getAll() {
-        return repository.findAll();
+    @Transactional
+    public Stream<Role> getAll() {
+        return repository.streamFindAll();
     }
 
     public Role add(String name) {

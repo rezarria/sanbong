@@ -4,14 +4,17 @@ import io.jsonwebtoken.Claims;
 import io.rezarria.sanbong.security.Details;
 import io.rezarria.sanbong.security.jwt.JwtUtils;
 import io.rezarria.sanbong.security.model.Account;
+import io.rezarria.sanbong.security.model.RegisterTemplate;
+import io.rezarria.sanbong.security.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -20,10 +23,12 @@ public class SecurityService {
     private final AccountService accountService;
     private final RoleService roleService;
     private final AuthenticationManager authenticationManager;
+    private final RegisterTemplateService registerTemplateService;
     private final JwtUtils jwtUtils;
 
     public String login(String username, String password) {
-        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        Authentication auth = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         Optional<Account> result = accountService.getAccountByUsername(username);
         Account account = result.orElseThrow();
         Details details = new Details();
@@ -36,7 +41,24 @@ public class SecurityService {
     }
 
     public Account register(String username, String password) {
-        return accountService.register(username, password, new HashSet<>(roleService.getAll())).orElseThrow();
+        return accountService.register(username, password, roleService.getAll());
+    }
+
+    @Nullable
+    public Account register(RegisterDTO dto) {
+        RegisterTemplate template = registerTemplateService.getNewest().orElseThrow();
+        Account account = accountService.make(dto.username, dto.password, template.getRoles());
+        account.setActive(template.isActive());
+        User user = new User();
+        user.setAvatar(dto.avatar);
+        user.setName(dto.name);
+        user.setDob(dto.dob);
+        account.setUser(user);
+        account.getRoles().addAll(template.getRoles());
+        return accountService.add(account);
+    }
+
+    public record RegisterDTO(String username, String password, String avatar, String name, Date dob) {
     }
 
     public void refresh(String token) {
