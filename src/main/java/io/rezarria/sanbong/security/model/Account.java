@@ -18,6 +18,6 @@ public class Account {
     private boolean active;
     @OneToOne(optional = true, mappedBy = "account", cascade = CascadeType.MERGE)
     private User user;
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "accounts")
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<Role> roles = new HashSet<>();
 }

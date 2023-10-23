@@ -16,6 +16,12 @@ import java.util.Map;
 public class SecurityController {
     private final SecurityService securityService;
 
+    @GetMapping("/all")
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(securityService.getAllAccount().stream().map(i -> (long) i.getRoles().size()));
+    }
+
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO dto) {
         Map<String, String> json = new HashMap<>();

@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -16,7 +15,7 @@ public class RoleService {
 
     @Transactional
     public Stream<Role> getAll() {
-        return repository.streamFindAll();
+        return repository.findAll().stream();
     }
 
     public Role add(String name) {

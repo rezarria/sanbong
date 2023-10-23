@@ -25,7 +25,7 @@ public class WebSecurity {
                 .authorizeHttpRequests(registry -> {
                     registry
                             .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-                            .requestMatchers("/api/security/checkInfo").hasRole("user")
+                            .requestMatchers("/api/security/checkInfo").authenticated()
                             .requestMatchers("/api/**").permitAll()
                             .anyRequest().authenticated();
                 })

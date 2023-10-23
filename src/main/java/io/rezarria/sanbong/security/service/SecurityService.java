@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,10 @@ public class SecurityService {
     private final AuthenticationManager authenticationManager;
     private final RegisterTemplateService registerTemplateService;
     private final JwtUtils jwtUtils;
+
+    public List<Account> getAllAccount() {
+        return accountService.getAll();
+    }
 
     public String login(String username, String password) {
         Authentication auth = authenticationManager
@@ -58,11 +63,11 @@ public class SecurityService {
         return accountService.add(account);
     }
 
-    public record RegisterDTO(String username, String password, String avatar, String name, Date dob) {
-    }
-
     public void refresh(String token) {
         Claims claims = jwtUtils.refresh(token);
         Details details = Details.from(claims);
+    }
+
+    public record RegisterDTO(String username, String password, String avatar, String name, Date dob) {
     }
 }

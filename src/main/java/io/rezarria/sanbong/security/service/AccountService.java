@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -29,6 +31,11 @@ public class AccountService {
         return respository.save(account);
     }
 
+
+    public List<Account> getAll() {
+        return respository.findAll();
+    }
+
     @Nullable
     public Account register(String username, String password, Stream<Role> roles) {
         try {
@@ -46,7 +53,7 @@ public class AccountService {
         Account account = new Account();
         account.setUsername(username);
         account.setPassword(passwordEncoder.encode(password));
-        account.getRoles().addAll(roles);
+        account.setRoles(new HashSet<>(roles));
         return account;
     }
 
