@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 public class UserDetails {
     @Bean
-    public UserDetailsService userDetailsService(AccountRepository accountDB, RoleRepository roleDB) {
+    public UserDetailsService userDetailsService(AccountRepository repository, RoleRepository roleDB) {
         return username -> {
-            Account account = accountDB.findByUsername(username).orElseThrow();
+            Account account = repository.findByUsername(username).orElseThrow();
             return User
                     .withUsername(account.getUsername())
                     .password(account.getPassword())
