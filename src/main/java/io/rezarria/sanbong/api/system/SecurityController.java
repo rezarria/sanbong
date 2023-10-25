@@ -1,7 +1,8 @@
-package io.rezarria.sanbong.api;
+package io.rezarria.sanbong.api.system;
 
+import io.rezarria.sanbong.api.system.securityDTO.LoginDTO;
+import io.rezarria.sanbong.api.system.securityDTO.RegisterDTO;
 import io.rezarria.sanbong.security.service.SecurityService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,15 +41,5 @@ public class SecurityController {
         return ResponseEntity.ok(securityService.register(dto.getUsername(), dto.getPassword()));
     }
 
-    @Data
-    public static class LoginDTO {
-        private String username;
-        private String password;
-    }
 
-    @Data
-    public static class RegisterDTO {
-        private String username;
-        private String password;
-    }
 }

@@ -16,6 +16,6 @@ public class User {
     private String avatar;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dob;
-    @OneToOne()
+    @OneToOne(optional = true)
     private Account account;
 }

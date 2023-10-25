@@ -1,18 +1,17 @@
 package io.rezarria.sanbong;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
+import io.rezarria.sanbong.security.model.Role;
+import io.rezarria.sanbong.security.repository.RoleRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import io.rezarria.sanbong.security.model.Role;
-import io.rezarria.sanbong.security.repository.RoleRepository;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 @SpringBootTest
 public class RolesRepositoryTests {
@@ -20,7 +19,7 @@ public class RolesRepositoryTests {
     @Autowired
     private RoleRepository repository;
 
-    private List<String> names = new ArrayList<>();
+    private final List<String> names = new ArrayList<>();
 
     Collection<Role> gen() {
         Collection<Role> roles = new HashSet<>();
@@ -42,7 +41,6 @@ public class RolesRepositoryTests {
     }
 
     @Test
-
     void delete() {
         Collection<Role> roles = gen();
         repository.saveAll(roles);

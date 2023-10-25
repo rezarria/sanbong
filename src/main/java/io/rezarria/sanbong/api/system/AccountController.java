@@ -1,4 +1,4 @@
-package io.rezarria.sanbong.api;
+package io.rezarria.sanbong.api.system;
 
 import io.rezarria.sanbong.security.model.Account;
 import io.rezarria.sanbong.security.repository.AccountRepository;
