@@ -5,6 +5,7 @@ import io.rezarria.sanbong.repository.FieldRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,12 +15,7 @@ public class FieldService {
     private final FieldRepository repository;
 
     public Field create(String name, String picture, String description) throws IllegalArgumentException {
-        Field field = new Field();
-        field.setName(name);
-        field.setPicture(picture);
-        field.setDescription(description);
-        repository.save(field);
-        return field;
+        return repository.save(Field.builder().name(name).description(description).picture(picture).build());
     }
 
     public List<Field> getAll() {
@@ -34,19 +30,27 @@ public class FieldService {
         return repository.getReferenceById(id);
     }
 
-    public List<Field> getMany(Iterable<UUID> ids) {
+    public List<Field> getMany(Collection<UUID> ids) {
         return repository.findAllById(ids);
     }
 
-    public List<Field> getManyByName(Iterable<String> names) {
+    public List<Field> getManyByName(Collection<String> names) {
         return repository.findAllByNameIn(names);
+    }
+
+    public void remove(UUID id) throws IllegalArgumentException {
+        repository.deleteById(id);
     }
 
     public void remove(String name) throws IllegalArgumentException {
         repository.deleteByName(name);
     }
 
-    public void remove(Iterable<String> names) {
+    public void remove(Collection<String> names) {
         repository.deleteAllByNameIn(names);
+    }
+
+    public void update(Field field) {
+        repository.save(field);
     }
 }

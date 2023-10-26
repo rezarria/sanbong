@@ -16,10 +16,9 @@ import java.util.List;
 @SpringBootTest
 public class RolesRepositoryTests {
 
+    private final List<String> names = new ArrayList<>();
     @Autowired
     private RoleRepository repository;
-
-    private final List<String> names = new ArrayList<>();
 
     Collection<Role> gen() {
         Collection<Role> roles = new HashSet<>();
