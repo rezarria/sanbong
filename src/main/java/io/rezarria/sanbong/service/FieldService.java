@@ -50,7 +50,7 @@ public class FieldService {
         repository.deleteAllByNameIn(names);
     }
 
-    public void update(Field field) {
-        repository.save(field);
+    public Field update(Field field) {
+        return repository.save(field);
     }
 }

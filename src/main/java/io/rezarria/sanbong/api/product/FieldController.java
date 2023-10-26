@@ -1,8 +1,11 @@
 package io.rezarria.sanbong.api.product;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+
 import io.rezarria.sanbong.api.product.FieldDTO.CreateDTO;
 import io.rezarria.sanbong.api.product.FieldDTO.DeleteDTO;
 import io.rezarria.sanbong.model.Field;
@@ -39,9 +42,12 @@ public class FieldController {
     }
 
     @PatchMapping(consumes = "application/json-patch+json")
-    public ResponseEntity<?> update(@RequestParam UUID id, @RequestBody JsonPatch patch) {
+    public ResponseEntity<?> update(@RequestParam UUID id, @RequestBody JsonPatch patch)
+            throws IllegalArgumentException, JsonPatchException, JsonProcessingException {
         Field field = fieldService.get(id);
-        JsonNode nodePatched = patch.apply(objectMapper.convertValue(field, JsonNode.class))
-        return ResponseEntity.ok().build();
+        JsonNode nodePatched = patch.apply(objectMapper.convertValue(field, JsonNode.class));
+        Field fieldPatched = objectMapper.treeToValue(nodePatched, Field.class);
+        fieldPatched = fieldService.update(fieldPatched);
+        return ResponseEntity.ok(fieldPatched);
     }
 }
