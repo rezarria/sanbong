@@ -1,33 +1,43 @@
 package io.rezarria.sanbong.security.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
+import io.rezarria.sanbong.converter.JsonNodeConverter;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
-import java.util.Set;
 import java.util.UUID;
 
-import io.rezarria.sanbong.model.FieldUseHistory;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String avatar;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dob;
 
     @OneToOne(optional = true)
     private Account account;
 
-    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
-    @EqualsAndHashCode.Exclude
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Convert(converter = JsonNodeConverter.class)
+    private JsonNode data;
+
     @ToString.Exclude
-    private Set<FieldUseHistory> FieldUseHistories;
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private Audit audit;
 }

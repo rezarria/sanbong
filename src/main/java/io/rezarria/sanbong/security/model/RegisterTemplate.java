@@ -19,6 +19,10 @@ public class RegisterTemplate {
     @ManyToMany(cascade = CascadeType.MERGE)
     private Set<Role> roles = new HashSet<>();
     @Temporal(TemporalType.TIMESTAMP)
+
+
     @CreatedDate
     private Date time;
+
+    private Audit audit;
 }

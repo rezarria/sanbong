@@ -4,20 +4,18 @@ import io.rezarria.sanbong.security.model.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Set;
 
 @Data
 @Entity
-@SuperBuilder()
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Customer extends User {
-    @OneToMany(mappedBy = "customer", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+public class Staff extends User {
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<FieldUseHistory> FieldUseHistories;
+    private Set<FieldUseHistory> fieldUseHistories;
 }

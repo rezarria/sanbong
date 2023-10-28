@@ -1,22 +1,12 @@
 package io.rezarria.sanbong.model;
 
+import io.rezarria.sanbong.security.model.Audit;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @Entity
@@ -24,6 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FieldPrice {
+    Audit audit;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -34,7 +25,6 @@ public class FieldPrice {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Field field;
-
     @OneToMany(mappedBy = "fieldPrice", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

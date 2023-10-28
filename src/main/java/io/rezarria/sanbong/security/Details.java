@@ -38,16 +38,16 @@ public class Details {
         map.forEach((k, v) -> claims.add(String.format("details__%s", k), v));
     }
 
-    public String getUserId() {
-        return map.get("userId");
+    public UUID getUserId() {
+        return UUID.fromString(map.get("userId"));
     }
 
     public void setUserId(UUID userId) {
         map.put("userId", userId.toString().replaceAll("-", ""));
     }
 
-    public String getAccountId() {
-        return map.get("accountId");
+    public UUID getAccountId() {
+        return UUID.fromString(map.get("accountId"));
     }
 
     public void setAccountId(UUID accountId) {
