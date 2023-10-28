@@ -11,16 +11,16 @@ import java.util.UUID;
 @Data
 @Entity()
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String name;
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH}, mappedBy = "roles", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Account> accounts = new HashSet<>();
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH}, mappedBy = "roles", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<RegisterTemplate> registerTemplates = new HashSet<>();
+        @Id
+        @GeneratedValue(strategy = GenerationType.UUID)
+        private UUID id;
+        private String name;
+        @ManyToMany(mappedBy = "roles", cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+                        CascadeType.REFRESH }, fetch = FetchType.LAZY)
+        @JsonIgnore
+        private Set<Account> accounts = new HashSet<>();
+        @ManyToMany(mappedBy = "roles", cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+                        CascadeType.REFRESH }, fetch = FetchType.LAZY)
+        @JsonIgnore
+        private Set<RegisterTemplate> registerTemplates = new HashSet<>();
 }

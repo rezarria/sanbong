@@ -1,12 +1,16 @@
 package io.rezarria.sanbong.model;
 
-import jakarta.persistence.CascadeType;
+import java.util.Date;
+import java.util.UUID;
+
+import io.rezarria.sanbong.security.model.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,40 +18,42 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Set;
-import java.util.UUID;
-
 @Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Field {
+public class FieldUseHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String name;
-    private String picture;
-    private String description;
 
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<FieldPrice> FieldPrices;
+    private Field field;
 
-    @OneToOne
-    private FieldPrice fieldPrice;
-
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<FieldDetail> fieldDetails;
+    private User staff;
 
-    @OneToOne
+    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Customer customer;
+
+    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private FieldDetail fieldDetail;
 
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<FieldUseHistory> FieldUseHistories;
+    private FieldPrice fieldPrice;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
+    private String description;
 }
