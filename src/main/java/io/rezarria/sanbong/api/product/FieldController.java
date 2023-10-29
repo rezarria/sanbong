@@ -10,6 +10,7 @@ import io.rezarria.sanbong.api.product.FieldDTO.DeleteDTO;
 import io.rezarria.sanbong.model.Field;
 import io.rezarria.sanbong.service.FieldService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/field")
 @RequiredArgsConstructor
 public class FieldController {
-
     private final FieldService fieldService;
+    @Qualifier("jsonPatchObjectMapper")
     private final ObjectMapper objectMapper;
 
     @GetMapping

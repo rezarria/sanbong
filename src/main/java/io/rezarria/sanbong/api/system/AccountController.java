@@ -9,6 +9,7 @@ import io.rezarria.sanbong.security.model.Role;
 import io.rezarria.sanbong.security.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/account")
 public class AccountController {
     private final AccountRepository repository;
+    @Qualifier("jsonPatchObjectMapper")
     private final ObjectMapper objectMapper;
 
     @GetMapping
