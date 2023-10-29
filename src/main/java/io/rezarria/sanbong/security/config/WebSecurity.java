@@ -22,13 +22,13 @@ public class WebSecurity {
                                               JwtUtils jwtUtil) throws Exception {
         return http
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(registry -> {
-                    registry
-                            .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-                            .requestMatchers("/api/security/checkInfo").authenticated()
-                            .requestMatchers("/api/**").permitAll()
-                            .anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(registry ->
+                        registry
+                                .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                                .requestMatchers("/api/security/checkInfo").authenticated()
+                                .requestMatchers("/api/**").permitAll()
+                                .anyRequest().authenticated()
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(cfg -> cfg.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
