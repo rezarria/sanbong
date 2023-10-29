@@ -1,6 +1,5 @@
 package io.rezarria.sanbong.security.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @EntityListeners(AuditingEntityListener.class)
@@ -19,6 +19,9 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Audit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @EqualsAndHashCode.Exclude

@@ -12,7 +12,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
-import java.util.UUID;
 
 
 @Data
@@ -23,9 +22,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
     private String name;
     private String avatar;
 

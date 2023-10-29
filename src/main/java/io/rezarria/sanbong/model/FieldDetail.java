@@ -2,14 +2,16 @@ package io.rezarria.sanbong.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.rezarria.sanbong.security.model.Audit;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.Set;
-import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -18,9 +20,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FieldDetail extends Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
     @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode data;
     @ManyToOne

@@ -1,12 +1,14 @@
 package io.rezarria.sanbong.model;
 
 import io.rezarria.sanbong.security.model.Audit;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
-import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,9 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FieldUseHistory extends Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
