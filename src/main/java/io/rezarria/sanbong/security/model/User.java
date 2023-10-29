@@ -21,7 +21,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends Audit {
+public class User extends BaseEntity {
     private String name;
     private String avatar;
 

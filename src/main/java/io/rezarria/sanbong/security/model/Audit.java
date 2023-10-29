@@ -10,30 +10,30 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @SuperBuilder
-@AllArgsConstructor
+// @AllArgsConstructor
 @NoArgsConstructor
 public class Audit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    @CreatedBy
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Account createdBy;
-    @LastModifiedBy
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Account lastModifiedBy;
-    @CreatedDate
-    private Instant createdDate;
-    @LastModifiedDate
-    private Instant lastModifiedDate;
+    // @CreatedBy
+    // @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = true)
+    // @EqualsAndHashCode.Exclude
+    // @ToString.Exclude
+    // protected Account createdBy;
+    // @LastModifiedBy
+    // @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = true)
+    // @EqualsAndHashCode.Exclude
+    // @ToString.Exclude
+    // protected Account lastModifiedBy;
+    // @CreatedDate
+    // @EqualsAndHashCode.Exclude
+    // @ToString.Exclude
+    // protected Instant createdDate;
+    // @LastModifiedDate
+    // @EqualsAndHashCode.Exclude
+    // @ToString.Exclude
+    // protected Instant lastModifiedDate;
 }

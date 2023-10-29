@@ -1,7 +1,7 @@
 package io.rezarria.sanbong.model;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import io.rezarria.sanbong.security.model.Audit;
+import io.rezarria.sanbong.security.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -16,7 +16,7 @@ import java.util.Set;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Field extends Audit {
+public class Field extends BaseEntity {
     private String name;
     private String picture;
     private String description;

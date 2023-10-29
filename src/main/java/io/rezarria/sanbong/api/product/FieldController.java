@@ -24,18 +24,18 @@ public class FieldController {
     @Qualifier("jsonPatchObjectMapper")
     private final ObjectMapper objectMapper;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(fieldService.getAll());
     }
 
-    @PostMapping(consumes = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> create(@RequestBody CreateDTO dto) {
         fieldService.create(dto.name(), dto.picture(), dto.description());
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(consumes = "application/json")
+    @DeleteMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> delete(@RequestBody DeleteDTO dto) {
         fieldService.remove(dto.getId());
         return ResponseEntity.ok().build();

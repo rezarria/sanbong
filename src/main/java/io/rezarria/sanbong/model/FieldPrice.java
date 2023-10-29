@@ -1,6 +1,6 @@
 package io.rezarria.sanbong.model;
 
-import io.rezarria.sanbong.security.model.Audit;
+import io.rezarria.sanbong.security.model.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -17,7 +17,7 @@ import java.util.Set;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldPrice extends Audit {
+public class FieldPrice extends BaseEntity {
     private double price;
     private Date time;
     private String description;

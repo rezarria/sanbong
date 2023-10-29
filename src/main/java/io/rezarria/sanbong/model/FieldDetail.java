@@ -1,7 +1,7 @@
 package io.rezarria.sanbong.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.rezarria.sanbong.security.model.Audit;
+import io.rezarria.sanbong.security.model.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -19,7 +19,7 @@ import java.util.Set;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldDetail extends Audit {
+public class FieldDetail extends BaseEntity {
     @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode data;
     @ManyToOne

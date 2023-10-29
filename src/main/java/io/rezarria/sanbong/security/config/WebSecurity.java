@@ -25,9 +25,10 @@ public class WebSecurity {
                 .authorizeHttpRequests(registry ->
                         registry
                                 .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-                                .requestMatchers("/api/security/checkInfo").authenticated()
+                                .requestMatchers("/api/security/checkInfo").permitAll()
                                 .requestMatchers("/api/**").permitAll()
-                                .anyRequest().authenticated()
+                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ASYNC, DispatcherType.REQUEST, DispatcherType.INCLUDE, DispatcherType.INCLUDE).permitAll()
+                                .anyRequest().permitAll()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)

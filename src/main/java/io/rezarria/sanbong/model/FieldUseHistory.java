@@ -1,6 +1,6 @@
 package io.rezarria.sanbong.model;
 
-import io.rezarria.sanbong.security.model.Audit;
+import io.rezarria.sanbong.security.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
@@ -16,7 +16,7 @@ import java.util.Date;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldUseHistory extends Audit {
+public class FieldUseHistory extends BaseEntity {
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

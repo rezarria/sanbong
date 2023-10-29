@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import java.util.List;
-
+import java.util.Collection;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/role")
@@ -16,16 +16,22 @@ import java.util.List;
 public class RoleController {
     private final RoleService roleService;
 
-    @GetMapping
-    public DeferredResult<?> getAll() throws Exception {
-        DeferredResult<List<Role>> deferredResult = new DeferredResult<>();
+    @GetMapping(produces = "application/json")
+    public DeferredResult<Collection<Role>> getAll() throws Exception {
+        DeferredResult<Collection<Role>> deferredResult = new DeferredResult<>();
         deferredResult.setResult(roleService.getAll().toList());
         return deferredResult;
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> create(@RequestBody CreateDTO dto) {
         return ResponseEntity.ok(roleService.add(dto.name));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> delete(@RequestBody Collection<UUID> ids) {
+        roleService.deleteAll(ids);
+        return ResponseEntity.ok().build();
     }
 
     public record CreateDTO(String name) {

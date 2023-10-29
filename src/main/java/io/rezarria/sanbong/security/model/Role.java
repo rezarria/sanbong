@@ -1,13 +1,8 @@
 package io.rezarria.sanbong.security.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
@@ -17,14 +12,20 @@ import java.util.Set;
 @Data
 @Entity()
 @SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Role extends Audit {
+public class Role extends BaseEntity {
+    public Role() {
+    }
+
     private String name;
-    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Set<Account> accounts = new HashSet<>();
-    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH}, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false)
+    @Builder.Default
+    private Set<AccountRole> accounts = new HashSet<>();
+
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnoreProperties("role")
+    @Builder.Default
     private Set<RegisterTemplate> registerTemplates = new HashSet<>();
 }

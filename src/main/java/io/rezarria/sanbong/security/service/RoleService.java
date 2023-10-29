@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -22,5 +24,10 @@ public class RoleService {
         Role role = new Role();
         role.setName(name);
         return roleRepository.save(role);
+    }
+
+    public void deleteAll(Collection<UUID> ids) {
+        var list = roleRepository.findAllById(ids);
+        roleRepository.deleteAll(roleRepository.saveAll(list));
     }
 }

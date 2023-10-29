@@ -1,5 +1,6 @@
 package io.rezarria.sanbong.security.service;
 
+import io.rezarria.sanbong.security.model.AccountRole;
 import io.rezarria.sanbong.security.model.Account;
 import io.rezarria.sanbong.security.model.Role;
 import io.rezarria.sanbong.security.repository.AccountRepository;
@@ -10,9 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -53,7 +54,7 @@ public class AccountService {
         Account account = new Account();
         account.setUsername(username);
         account.setPassword(passwordEncoder.encode(password));
-        account.setRoles(new HashSet<>(roles));
+        account.setRoles(roles.stream().map(AccountRole.builder()::role).map(AccountRole.AccountRoleBuilder::build).collect(Collectors.toSet()));
         return account;
     }
 

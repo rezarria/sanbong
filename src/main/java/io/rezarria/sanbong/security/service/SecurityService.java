@@ -59,7 +59,6 @@ public class SecurityService {
         user.setName(dto.name);
         user.setDob(dto.dob);
         account.setUser(user);
-        account.getRoles().addAll(template.getRoles());
         return accountService.add(account);
     }
 

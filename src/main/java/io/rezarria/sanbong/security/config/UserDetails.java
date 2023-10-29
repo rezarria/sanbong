@@ -1,5 +1,6 @@
 package io.rezarria.sanbong.security.config;
 
+import io.rezarria.sanbong.security.model.AccountRole;
 import io.rezarria.sanbong.security.model.Account;
 import io.rezarria.sanbong.security.model.Role;
 import io.rezarria.sanbong.security.repository.AccountRepository;
@@ -18,7 +19,7 @@ public class UserDetails {
             return User
                     .withUsername(account.getUsername())
                     .password(account.getPassword())
-                    .roles(account.getRoles().stream().map(Role::getName).toList()
+                    .roles(account.getRoles().stream().map(AccountRole::getRole).map(Role::getName).toList()
                             .toArray(new String[0]))
                     .accountExpired(!account.isActive())
                     .credentialsExpired(!account.isActive())
