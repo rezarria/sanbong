@@ -22,6 +22,6 @@ public class RegisterTemplateService {
     }
 
     public Optional<RegisterTemplate> getNewest() {
-        return repository.findFirstByOrderByTimeDesc();
+        return repository.findFirstByOrderByCreatedDateDesc();
     }
 }

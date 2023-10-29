@@ -8,5 +8,5 @@ import java.util.UUID;
 
 
 public interface RegisterTemplateRepository extends JpaRepository<RegisterTemplate, UUID> {
-    Optional<RegisterTemplate> findFirstByOrderByTimeDesc();
+    Optional<RegisterTemplate> findFirstByOrderByCreatedDateDesc();
 }

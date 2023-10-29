@@ -37,7 +37,7 @@ public class FieldServiceTests {
     }
 
     @BeforeEach
-    private void setupAdd() {
+    public void setupAdd() {
 
     }
 
@@ -53,12 +53,12 @@ public class FieldServiceTests {
     }
 
     @AfterEach
-    private void cleanUpAdd() {
+    public void cleanUpAdd() {
         del(5);
     }
 
     @BeforeEach
-    private void setupGet() {
+    public void setupGet() {
         gen(6);
     }
 
@@ -74,12 +74,12 @@ public class FieldServiceTests {
     }
 
     @AfterEach
-    private void cleanUpGet() {
+    public void cleanUpGet() {
         del(6);
     }
 
     @BeforeEach
-    private void setUpDelete() {
+    public void setUpDelete() {
         gen(7);
     }
 
@@ -92,7 +92,7 @@ public class FieldServiceTests {
     }
 
     @AfterEach
-    private void cleanUpDelete() {
+    public void cleanUpDelete() {
         del(7);
     }
 }

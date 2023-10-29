@@ -30,7 +30,7 @@ public class FieldController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<?> create(@RequestBody CreateDTO dto) {
-        fieldService.create(dto.getName(), dto.getPicture(), dto.getDescription());
+        fieldService.create(dto.name(), dto.picture(), dto.description());
         return ResponseEntity.ok().build();
     }
 

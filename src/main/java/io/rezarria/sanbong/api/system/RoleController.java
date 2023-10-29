@@ -24,7 +24,10 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestParam String name) {
-        return ResponseEntity.ok(roleService.add(name));
+    public ResponseEntity<?> create(@RequestBody CreateDTO dto) {
+        return ResponseEntity.ok(roleService.add(dto.name));
+    }
+
+    public record CreateDTO(String name) {
     }
 }

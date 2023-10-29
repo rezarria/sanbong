@@ -2,6 +2,7 @@ package io.rezarria.sanbong.service;
 
 import io.rezarria.sanbong.model.Field;
 import io.rezarria.sanbong.repository.FieldRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class FieldService {
     private final FieldRepository repository;

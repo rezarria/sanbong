@@ -3,17 +3,18 @@ package io.rezarria.sanbong.model;
 import io.rezarria.sanbong.security.model.Audit;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldUseHistory {
-    Audit audit;
+public class FieldUseHistory extends Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

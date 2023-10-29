@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 @Embeddable
 public class AuditWith<T> {
-    @OneToMany(mappedBy = "audit.createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
     private List<T> creates;
-    @OneToMany(mappedBy = "audit.lastModifiedBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lastModifiedBy", fetch = FetchType.LAZY)
     private List<T> modifies;
 }
