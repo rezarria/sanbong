@@ -10,11 +10,11 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RegisterTemplateService {
-    private final RegisterTemplateRepository repository;
+    private final RegisterTemplateRepository registerTemplateRepository;
 
     public Optional<RegisterTemplate> add(RegisterTemplate template) {
         try {
-            repository.save(template);
+            registerTemplateRepository.save(template);
         } catch (Exception e) {
             return Optional.empty();
         }
@@ -22,6 +22,6 @@ public class RegisterTemplateService {
     }
 
     public Optional<RegisterTemplate> getNewest() {
-        return repository.findFirstByOrderByCreatedDateDesc();
+        return registerTemplateRepository.findFirstByOrderByCreatedDateDesc();
     }
 }

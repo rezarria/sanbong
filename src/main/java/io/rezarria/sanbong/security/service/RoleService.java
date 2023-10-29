@@ -11,16 +11,16 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class RoleService {
-    private final RoleRepository repository;
+    private final RoleRepository roleRepository;
 
     @Transactional
     public Stream<Role> getAll() {
-        return repository.findAll().stream();
+        return roleRepository.findAll().stream();
     }
 
     public Role add(String name) {
         Role role = new Role();
         role.setName(name);
-        return repository.save(role);
+        return roleRepository.save(role);
     }
 }

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     public void create(User user) {
-        repository.save(user);
+        userRepository.save(user);
     }
 }

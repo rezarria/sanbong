@@ -21,25 +21,25 @@ public class AccountService {
     @Lazy
     private final PasswordEncoder passwordEncoder;
     @Lazy
-    private final AccountRepository respository;
+    private final AccountRepository accountRepository;
 
     public Optional<Account> getAccountByUsername(String username) {
-        return respository.findByUsername(username);
+        return accountRepository.findByUsername(username);
     }
 
     public Account add(Account account) {
-        return respository.save(account);
+        return accountRepository.save(account);
     }
 
 
     public List<Account> getAll() {
-        return respository.findAll();
+        return accountRepository.findAll();
     }
 
     @Nullable
     public Account register(String username, String password, Stream<Role> roles) {
         try {
-            return respository.save(make(username, password, roles));
+            return accountRepository.save(make(username, password, roles));
         } catch (Exception e) {
             return null;
         }
